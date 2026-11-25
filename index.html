@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropYield US: 2026 Rent vs. Buy, Rental Property Cash Flow &amp; BRRRR Deal Analyzer</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230F766E'/%3E%3Cpath d='M14 34L32 18l18 16v16H38V38H26v12H14z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+  <meta name="description" content="100% free 2026 US real estate calculators with zero paywall: Rent vs. Buy break-even with S&amp;P 500 opportunity cost, Rental Property Cash Flow/Cap Rate/DSCR + Reverse Max Offer Price, and BRRRR 75% LTV Refinance Analyzer.">
+  <meta property="og:title" content="PropYield US: 2026 Rent vs. Buy, Rental Cash Flow &amp; BRRRR Analyzer">
+  <meta property="og:description" content="Free BiggerPockets-grade rental cash flow, DSCR, reverse max offer price, and BRRRR refinance analyzer with PDF/CSV export.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand-link" href="#rentbuy">
+        <span class="brand-badge" aria-hidden="true">P</span>
+        <span style="min-width:0;">
+          <span class="brand-title" id="brandNameText">PropYield US</span>
+          <span class="brand-sub" id="brandSubText">2026 Rent vs. Buy, Rental &amp; BRRRR Analyzer</span>
+        </span>
+      </a>
+
+      <div class="header-meta">
+        <a class="btn btn-sm hide-xs" href="https://dinhduy2702.github.io/us-smart-money-calculators/" target="_blank" rel="noopener noreferrer">SmartMoney US</a>
+        <a class="btn btn-sm hide-xs" href="https://dinhduy2702.github.io/us-debt-free-planner/" target="_blank" rel="noopener noreferrer">DebtFree US</a>
+        <a class="btn btn-sm hide-xs" href="https://dinhduy2702.github.io/us-solotax-planner/" target="_blank" rel="noopener noreferrer">SoloTax US</a>
+        <button type="button" class="btn btn-sm" id="themeToggleBtn" aria-label="Switch color theme">Dark Mode</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="tool-nav-wrap">
+    <div class="container">
+      <nav class="tool-nav" role="tablist" aria-label="Real estate calculators">
+        <button type="button" class="tool-tab" role="tab" id="tab-rentbuy" aria-controls="panel-rentbuy" aria-selected="true" data-tool="rentbuy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Rent vs. Buy
+        </button>
+        <button type="button" class="tool-tab" role="tab" id="tab-rental" aria-controls="panel-rental" aria-selected="false" data-tool="rental">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Rental Cash Flow &amp; Cap Rate
+        </button>
+        <button type="button" class="tool-tab" role="tab" id="tab-brrrr" aria-controls="panel-brrrr" aria-selected="false" data-tool="brrrr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          BRRRR Deal Analyzer
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="page-intro">
+      <div>
+        <h1 class="page-title" id="activeToolHeading">2026 US Rent vs. Buy Break-Even Calculator</h1>
+        <p class="page-desc" id="activeToolDesc">
+          Compare buying a home against renting and investing your down payment in the S&amp;P 500 — including 6% selling costs, property tax, maintenance, and rent inflation.
+        </p>
+      </div>
+      <div class="intro-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="shareLinkBtn">Share<span class="hide-xs"> Link</span></button>
+        <button type="button" class="btn btn-sm" id="copyScenarioBtn">Copy<span class="hide-xs"> Summary</span></button>
+        <button type="button" class="btn btn-sm" id="printReportBtn">Print<span class="hide-xs"> / PDF</span></button>
+        <button type="button" class="btn btn-sm" id="resetDefaultsBtn">Reset</button>
+      </div>
+    </section>
+
+    <section class="presets-bar" aria-label="Quick example scenarios">
+      <span class="presets-label">Try a scenario:</span>
+      <div class="presets-chips" id="quickPresetsRow"></div>
+    </section>
+
+    <!-- TAB 1: RENT VS BUY BREAK-EVEN -->
+    <section class="calc-panel" id="panel-rentbuy" role="tabpanel" aria-labelledby="tab-rentbuy">
+      <div class="calc-grid">
+        <div class="card">
+          <h2 class="card-heading">Home Purchase vs. Renting Inputs</h2>
+          <p class="card-sub">Models true opportunity cost: any cash saved by renting is invested at your expected market return.</p>
+
+          <div class="form-stack">
+            <div class="field">
+              <div class="field-head">
+                <label for="rbPrice">Home Purchase Price ($)</label>
+                <span class="field-hint tabular" id="rbPriceHint">$450,000</span>
+              </div>
+              <input class="input-box tabular" type="number" id="rbPrice" min="100000" max="5000000" step="10000" value="450000">
+              <input class="range-slider" type="range" id="rbPriceSlider" min="150000" max="1500000" step="10000" value="450000" aria-label="Home purchase price slider">
+            </div>
+
+            <div class="field-row-2">
+              <div class="field">
+                <label for="rbRent">Comparable Monthly Rent ($)</label>
+                <input class="input-box tabular" type="number" id="rbRent" min="500" max="20000" step="50" value="2300">
+              </div>
+              <div class="field">
+                <label for="rbYears">Planned Stay (Years)</label>
+                <input class="input-box tabular" type="number" id="rbYears" min="1" max="30" step="1" value="10">
+              </div>
+            </div>
+
+            <div class="field-row-2">
+              <div class="field">
+                <label for="rbDownPct">Down Payment (%)</label>
+                <input class="input-box tabular" type="number" id="rbDownPct" min="3" max="80" step="1" value="20">
+              </div>
+              <div class="field">
+                <label for="rbApr">Mortgage APR (%)</label>
+                <input class="input-box tabular" type="number" id="rbApr" min="1" max="14" step="0.125" value="6.5">
+              </div>
+            </div>
+
+            <details class="advanced-details" open>
+              <summary>Appreciation, S&amp;P 500 Opportunity Cost &amp; Holding Costs</summary>
+              <div class="advanced-inner">
+                <div class="field-row-3">
+                  <div class="field">
+                    <label for="rbApprec">Home Growth (%/yr)</label>
+                    <input class="input-box tabular" type="number" id="rbApprec" min="0" max="12" step="0.25" value="3.5">
+                  </div>
+                  <div class="field">
+                    <label for="rbInvest">Invest Return (%/yr)</label>
+                    <input class="input-box tabular" type="number" id="rbInvest" min="0" max="15" step="0.5" value="8.0">
+                  </div>
+                  <div class="field">
+                    <label for="rbRentGrow">Rent Growth (%/yr)</label>
+                    <input class="input-box tabular" type="number" id="rbRentGrow" min="0" max="10" step="0.25" value="3.0">
+                  </div>
+                </div>
+                <div class="field-row-2">
+                  <div class="field">
+                    <label for="rbTaxMaint">Tax + Ins + Maint (%/yr)</label>
+                    <input class="input-box tabular" type="number" id="rbTaxMaint" min="0.5" max="6" step="0.1" value="2.3">
+                  </div>
+                  <div class="field">
+                    <label for="rbSellCost">Selling Fees (% at exit)</label>
+                    <input class="input-box tabular" type="number" id="rbSellCost" min="0" max="10" step="0.5" value="6.0">
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="card result-sticky" aria-live="polite">
+          <div class="hero-result-top">
+            <div>
+              <span class="result-label" id="rbWinnerLabel">Net Wealth Winner at Year 10</span>
+              <span class="result-big tabular" id="rbWinnerVal">...</span>
+              <div class="result-subline tabular" id="rbWinnerSub">...</div>
+            </div>
+            <span class="status-pill pass tabular" id="rbBreakEvenBadge">Break-Even: Yr 0</span>
+          </div>
+
+          <div class="kpi-strip-3">
+            <div class="kpi-mini">
+              <span>Buying Net Wealth</span>
+              <strong class="tabular" id="rbBuyNet">$0</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Rent + Invest Wealth</span>
+              <strong class="tabular" id="rbRentNet">$0</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Yr 1 Monthly Buy Cost</span>
+              <strong class="tabular" id="rbMonthlyBuy">$0/mo</strong>
+            </div>
+          </div>
+
+          <div class="insight-box" id="rbInsightBox"></div>
+          <div class="bridge-box" id="rbBridgeBox"></div>
+          <div class="result-cta-card" data-result-cta="rentbuy"></div>
+        </div>
+      </div>
+
+      <div class="card deep-section">
+        <div class="deep-head">
+          <div>
+            <h2 class="card-heading">Year-by-Year Rent vs. Buy Net Wealth Trajectory</h2>
+            <p class="card-sub" style="margin-bottom:0;">Net Buy Equity (after 6% selling fees) vs. Invested Renter Portfolio.</p>
+          </div>
+          <button type="button" class="btn btn-sm" id="rbExportCsvBtn">Export CSV</button>
+        </div>
+        <div class="table-scroll">
+          <table class="schedule-table" aria-label="Rent vs Buy yearly trajectory">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Monthly Rent</th>
+                <th>Home Net Equity (After Fees)</th>
+                <th>Renter Invested Portfolio</th>
+                <th>Advantage</th>
+              </tr>
+            </thead>
+            <tbody id="rbTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: RENTAL PROPERTY CASH FLOW & CAP RATE + REVERSE MAX OFFER -->
+    <section class="calc-panel" id="panel-rental" role="tabpanel" aria-labelledby="tab-rental" hidden>
+      <div class="calc-grid">
+        <div class="card">
+          <h2 class="card-heading">Rental Property Underwriting Inputs</h2>
+          <p class="card-sub">Full investor underwriting: NOI, Cap Rate, Cash-on-Cash, DSCR, and 1% Rule check — zero paywall.</p>
+
+          <div class="form-stack">
+            <div class="field-row-2">
+              <div class="field">
+                <label for="rnPrice">Purchase Price ($)</label>
+                <input class="input-box tabular" type="number" id="rnPrice" min="50000" max="5000000" step="5000" value="280000">
+              </div>
+              <div class="field">
+                <label for="rnRent">Gross Monthly Rent ($)</label>
+                <input class="input-box tabular" type="number" id="rnRent" min="300" max="30000" step="50" value="2650">
+              </div>
+            </div>
+
+            <div class="field-row-3">
+              <div class="field">
+                <label for="rnDownPct">Down (%)</label>
+                <input class="input-box tabular" type="number" id="rnDownPct" min="5" max="100" step="5" value="25">
+              </div>
+              <div class="field">
+                <label for="rnApr">Loan APR (%)</label>
+                <input class="input-box tabular" type="number" id="rnApr" min="1" max="15" step="0.125" value="7.0">
+              </div>
+              <div class="field">
+                <label for="rnClosing">Closing + Rehab ($)</label>
+                <input class="input-box tabular" type="number" id="rnClosing" min="0" max="200000" step="500" value="8000">
+              </div>
+            </div>
+
+            <details class="advanced-details" open>
+              <summary>Operating Expenses (Vacancy, Taxes, CapEx, Management)</summary>
+              <div class="advanced-inner">
+                <div class="field-row-3">
+                  <div class="field">
+                    <label for="rnVacPct">Vacancy (%)</label>
+                    <input class="input-box tabular" type="number" id="rnVacPct" min="0" max="25" step="1" value="6">
+                  </div>
+                  <div class="field">
+                    <label for="rnMaintPct">Maint + CapEx (%)</label>
+                    <input class="input-box tabular" type="number" id="rnMaintPct" min="0" max="25" step="1" value="10">
+                  </div>
+                  <div class="field">
+                    <label for="rnMgmtPct">Prop Mgmt (%)</label>
+                    <input class="input-box tabular" type="number" id="rnMgmtPct" min="0" max="20" step="1" value="8">
+                  </div>
+                </div>
+                <div class="field-row-2">
+                  <div class="field">
+                    <label for="rnTaxInsMo">Tax + Ins + HOA ($ / mo)</label>
+                    <input class="input-box tabular" type="number" id="rnTaxInsMo" min="0" max="5000" step="25" value="390">
+                  </div>
+                  <div class="field">
+                    <label for="rnTerm">Loan Term (Years)</label>
+                    <select class="select-box" id="rnTerm">
+                      <option value="30" selected>30-Year Fixed</option>
+                      <option value="20">20-Year Fixed</option>
+                      <option value="15">15-Year Fixed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="card result-sticky" aria-live="polite">
+          <div class="hero-result-top">
+            <div>
+              <span class="result-label">Monthly Net Cash Flow</span>
+              <span class="result-big tabular" id="rnCashFlow">$0/mo</span>
+              <div class="result-subline tabular" id="rnAnnualCfSub">Annual Cash Flow: $0 · Total Cash Invested: $0</div>
+            </div>
+            <span class="status-pill pass tabular" id="rnRuleBadge">1% Rule</span>
+          </div>
+
+          <div class="kpi-strip-4">
+            <div class="kpi-mini">
+              <span>Cash-on-Cash</span>
+              <strong class="tabular" id="rnCoc">0%</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Cap Rate</span>
+              <strong class="tabular" id="rnCapRate">0%</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>DSCR Ratio</span>
+              <strong class="tabular" id="rnDscr">0.00x</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Annual NOI</span>
+              <strong class="tabular" id="rnNoi">$0</strong>
+            </div>
+          </div>
+
+          <div class="reverse-box">
+            <div class="reverse-head">
+              <div>
+                <strong>Reverse Max Offer Price (Negotiation Ceiling)</strong>
+                <span class="reverse-sub">Enter your target Cash-on-Cash Return to find the highest price you should offer.</span>
+              </div>
+              <button type="button" class="btn btn-sm" id="rnApplyOfferBtn">Apply Max Offer</button>
+            </div>
+            <div class="field-row-2" style="margin-top:0.65rem;">
+              <div class="field">
+                <label for="rnTargetCoc">Target Cash-on-Cash (%)</label>
+                <input class="input-box tabular" type="number" id="rnTargetCoc" min="1" max="30" step="0.5" value="8">
+              </div>
+              <div class="field">
+                <label>Max Offer Price</label>
+                <div class="reverse-readout tabular" id="rnMaxOffer">$0</div>
+              </div>
+            </div>
+          </div>
+
+          <table class="breakdown-table" style="margin-top:0.85rem;" aria-label="Monthly rental P&L">
+            <tbody id="rnBreakdownBody"></tbody>
+          </table>
+
+          <div class="insight-box" id="rnInsightBox"></div>
+          <div class="result-cta-card" data-result-cta="rental"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: BRRRR DEAL & 75% LTV REFINANCE ANALYZER -->
+    <section class="calc-panel" id="panel-brrrr" role="tabpanel" aria-labelledby="tab-brrrr" hidden>
+      <div class="calc-grid">
+        <div class="card">
+          <h2 class="card-heading">BRRRR Deal &amp; Refinance Inputs</h2>
+          <p class="card-sub">Buy, Rehab, Rent, Refinance, Repeat — 100% free alternative to paywalled deal analyzers.</p>
+
+          <div class="form-stack">
+            <div class="field-row-2">
+              <div class="field">
+                <label for="brPurchase">Purchase Price ($)</label>
+                <input class="input-box tabular" type="number" id="brPurchase" min="30000" max="3000000" step="5000" value="175000">
+              </div>
+              <div class="field">
+                <label for="brRehab">Rehab Budget ($)</label>
+                <input class="input-box tabular" type="number" id="brRehab" min="0" max="1000000" step="2500" value="45000">
+              </div>
+            </div>
+
+            <div class="field-row-2">
+              <div class="field">
+                <label for="brArv">After Repair Value — ARV ($)</label>
+                <input class="input-box tabular" type="number" id="brArv" min="50000" max="5000000" step="5000" value="310000">
+              </div>
+              <div class="field">
+                <label for="brHolding">Buy Closing + Holding Costs ($)</label>
+                <input class="input-box tabular" type="number" id="brHolding" min="0" max="150000" step="500" value="9500">
+              </div>
+            </div>
+
+            <div class="field-row-3">
+              <div class="field">
+                <label for="brLtv">Refi LTV (%)</label>
+                <input class="input-box tabular" type="number" id="brLtv" min="50" max="85" step="5" value="75">
+              </div>
+              <div class="field">
+                <label for="brRefiApr">Refi APR (%)</label>
+                <input class="input-box tabular" type="number" id="brRefiApr" min="2" max="14" step="0.125" value="7.0">
+              </div>
+              <div class="field">
+                <label for="brRefiClosePct">Refi Costs (%)</label>
+                <input class="input-box tabular" type="number" id="brRefiClosePct" min="0" max="6" step="0.5" value="2.5">
+              </div>
+            </div>
+
+            <div class="field-row-2">
+              <div class="field">
+                <label for="brRent">Post-Rehab Monthly Rent ($)</label>
+                <input class="input-box tabular" type="number" id="brRent" min="400" max="30000" step="50" value="2550">
+              </div>
+              <div class="field">
+                <label for="brExpPct">Operating Expense Ratio (%)</label>
+                <input class="input-box tabular" type="number" id="brExpPct" min="15" max="65" step="1" value="40">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card result-sticky" aria-live="polite">
+          <div class="hero-result-top">
+            <div>
+              <span class="result-label">Cash Left in Deal After Refinance</span>
+              <span class="result-big tabular" id="brCashLeft">$0</span>
+              <div class="result-subline tabular" id="brEquitySub">Instant Equity Created: $0 · Refi Loan: $0</div>
+            </div>
+            <span class="status-pill pass tabular" id="brReturnBadge">Infinite Return</span>
+          </div>
+
+          <div class="kpi-strip-4">
+            <div class="kpi-mini">
+              <span>Post-Refi Cash Flow</span>
+              <strong class="tabular" id="brCashFlow">$0/mo</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Post-Refi CoC</span>
+              <strong class="tabular" id="brCoc">0%</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Refi DSCR</span>
+              <strong class="tabular" id="brDscr">0.00x</strong>
+            </div>
+            <div class="kpi-mini">
+              <span>Total All-In Cost</span>
+              <strong class="tabular" id="brAllIn">$0</strong>
+            </div>
+          </div>
+
+          <table class="breakdown-table" style="margin-top:0.9rem;" aria-label="BRRRR capital stack breakdown">
+            <tbody id="brBreakdownBody"></tbody>
+          </table>
+
+          <div class="insight-box" id="brInsightBox"></div>
+          <div class="result-cta-card" data-result-cta="brrrr"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTEXTUAL NEXT STEPS (ACTIONABLE CHECKLISTS - ZERO COMING SOON) -->
+    <section class="offers-section" aria-label="Real estate underwriting playbooks">
+      <div class="offers-head">
+        <h2>Smart Next Steps for Real Estate Investors &amp; Buyers</h2>
+        <span style="font-size:0.8rem; color:var(--text-muted);">2026 US Real Estate &amp; Lending Playbooks</span>
+      </div>
+      <div class="offers-grid" id="offersGrid"></div>
+
+      <div class="ecosystem-bar">
+        <div>
+          <strong>Complete Your 2026 US Financial Ecosystem</strong>
+          <div style="font-size:0.84rem; color:var(--text-secondary); margin-top:0.2rem;">
+            Jump to 50-state paycheck &amp; mortgage PITI, debt payoff planner, S-Corp tax optimizer, or the 2026 Wealth OS.
+          </div>
+        </div>
+        <div class="eco-links" id="ecoLinksContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Educational Disclaimer:</strong> PropYield US calculators provide general mathematical projections for educational and deal-screening purposes only. Actual mortgage rates, DSCR underwriting criteria, property taxes, rehab overruns, and rental market demand vary by property and lender. Always perform independent inspections and consult licensed real estate and tax professionals.
+    </div>
+  </footer>
+
+  <dialog class="wealth-modal" id="wealthOsModal" aria-labelledby="wealthOsModalTitle">
+    <div class="wealth-modal-head">
+      <div>
+        <span class="offer-badge">2026 Google Sheets System</span>
+        <h2 id="wealthOsModalTitle">US Personal Finance &amp; Wealth OS (Free Lite Preview)</h2>
+      </div>
+      <button type="button" class="btn btn-sm" id="closeModalBtn" aria-label="Close preview">Close</button>
+    </div>
+    <p class="wealth-modal-desc">
+      Built to pair with PropYield US &amp; SmartMoney US — track rental property equity, down-payment savings goals, 50/30/20 cash flow, and S&amp;P 500 FIRE targets in one clean Google Sheet.
+    </p>
+    <ul class="wealth-modal-list">
+      <li><strong>Down Payment &amp; CapEx Reserve Tracker:</strong> Automates monthly savings targets for your next rental or home purchase.</li>
+      <li><strong>Net Worth &amp; Home Equity Dashboard:</strong> Combines property equity, mortgage balances, and brokerage portfolios.</li>
+      <li><strong>50/30/20 Cash-Flow &amp; Debt Payoff Tab:</strong> Keeps personal DTI under 36% so you qualify for better investment loan rates.</li>
+      <li><strong>Zero Subscription Fees:</strong> Lives 100% inside your own Google Drive with complete privacy.</li>
+    </ul>
+    <div class="wealth-modal-actions">
+      <button type="button" class="btn btn-primary btn-sm" id="modalPrintBtn">Export Deal Report (PDF)</button>
+      <button type="button" class="btn btn-sm" id="modalCloseFooterBtn">Back to Analyzer</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toastBox" hidden role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
