@@ -14,12 +14,12 @@ window.PROPYIELD_CONFIG = {
     soloTaxUrl: "https://dinhduy2702.github.io/us-solotax-planner/",
     retireSmartUrl: "https://dinhduy2702.github.io/us-retiresmart-planner/",
     youtubeFinance: {
-      label: "Watch US Real Estate & Finance Guides",
-      url: "" // AGY 3 cap nhat link kenh YT Finance EN khi lap xong
+      label: "Watch The Ledger on YouTube",
+      url: "https://www.youtube.com/@TheLedgerCapital"
     },
     gumroadWealthOs: {
-      label: "US Personal Finance & Wealth OS (2026 Sheets)",
-      url: "" // AGY 5 cap nhat link Gumroad SP #2 khi xong
+      label: "Get Rental & BRRRR OS ($0 Lite / $24 Full)",
+      url: "https://897833387907.gumroad.com/l/us-rental-property-schedule-e-brrrr-os-2026"
     }
   },
   affiliates: [
