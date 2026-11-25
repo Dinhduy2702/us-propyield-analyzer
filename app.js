@@ -488,7 +488,8 @@
     const ecoBtns = [
       `<a class="btn btn-sm" href="${CONFIG.ecosystem.smartMoneyUrl}" target="_blank" rel="noopener noreferrer">SmartMoney US</a>`,
       `<a class="btn btn-sm" href="${CONFIG.ecosystem.debtFreeUrl}" target="_blank" rel="noopener noreferrer">DebtFree US</a>`,
-      `<a class="btn btn-sm" href="${CONFIG.ecosystem.soloTaxUrl}" target="_blank" rel="noopener noreferrer">SoloTax US</a>`
+      `<a class="btn btn-sm" href="${CONFIG.ecosystem.soloTaxUrl}" target="_blank" rel="noopener noreferrer">SoloTax US</a>`,
+      `<a class="btn btn-sm" href="${CONFIG.ecosystem.retireSmartUrl}" target="_blank" rel="noopener noreferrer">RetireSmart US</a>`
     ];
     if (hasYtUrl) ecoBtns.push(`<a class="btn btn-sm" href="${ytOffer.url}" target="_blank" rel="noopener noreferrer">${ytOffer.label}</a>`);
     if (hasSheetUrl) {

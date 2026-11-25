@@ -12,6 +12,7 @@ window.PROPYIELD_CONFIG = {
     smartMoneyUrl: "https://dinhduy2702.github.io/us-smart-money-calculators/",
     debtFreeUrl: "https://dinhduy2702.github.io/us-debt-free-planner/",
     soloTaxUrl: "https://dinhduy2702.github.io/us-solotax-planner/",
+    retireSmartUrl: "https://dinhduy2702.github.io/us-retiresmart-planner/",
     youtubeFinance: {
       label: "Watch US Real Estate & Finance Guides",
       url: "" // AGY 3 cap nhat link kenh YT Finance EN khi lap xong
